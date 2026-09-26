@@ -12,6 +12,26 @@ const summaryLength = document.querySelector('#summaryLength');
 const modelStatus = document.querySelector('#modelStatus');
 const statusText = document.querySelector('#statusText');
 const progressBar = document.querySelector('#progressBar');
+const themeToggle = document.querySelector('#themeToggle');
+
+const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme === 'dark') {
+  document.body.classList.add('dark');
+  themeToggle.textContent = '☀️ حالت روشن';
+}
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+
+  const isDark = document.body.classList.contains('dark');
+
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+  themeToggle.textContent = isDark
+    ? '☀️ حالت روشن'
+    : '🌙 حالت تاریک';
+});
 input.addEventListener('input', () => {
   const text = input.value.trim();
 

@@ -32,7 +32,18 @@ self.onmessage = async (event) => {
       await new Promise(resolve => setTimeout(resolve, 100));
     }
 
+    let min_new_tokens = 20;
+
+    if (max_new_tokens === 70) {
+      min_new_tokens = 40;
+    }
+
+    if (max_new_tokens === 120) {
+      min_new_tokens = 70;
+    }
+
     const result = await summarizer(text, {
+      min_new_tokens: min_new_tokens,
       max_new_tokens: max_new_tokens
     });
 
