@@ -161,3 +161,63 @@ button:disabled {
     flex-direction: column;
   }
 }
+.model-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f3f4f6;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f59e0b;
+}
+
+.model-status.ready {
+  color: #047857;
+  background: #ecfdf5;
+}
+
+.model-status.ready .status-dot {
+  background: #10b981;
+}
+
+.model-status.loading {
+  color: #92400e;
+  background: #fffbeb;
+}
+
+.model-status.loading .status-dot {
+  background: #f59e0b;
+}
+
+.model-status.processing {
+  color: #3730a3;
+  background: #eef2ff;
+}
+
+.model-status.processing .status-dot {
+  background: #6366f1;
+}
+.progress-container {
+  width: 100%;
+  height: 8px;
+  margin: 10px 0 18px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: #6366f1;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}

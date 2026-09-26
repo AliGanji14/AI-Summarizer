@@ -9,7 +9,9 @@ const copyBtn = document.querySelector('#copyBtn');
 const output = document.querySelector('#output');
 const counter = document.querySelector('#counter');
 const summaryLength = document.querySelector('#summaryLength');
-
+const modelStatus = document.querySelector('#modelStatus');
+const statusText = document.querySelector('#statusText');
+const progressBar = document.querySelector('#progressBar');
 input.addEventListener('input', () => {
   const text = input.value.trim();
 
@@ -21,26 +23,42 @@ input.addEventListener('input', () => {
 
 worker.onmessage = (event) => {
   const data = event.data;
-
+  if (data.status === 'progress') {
+    modelStatus.className = 'model-status loading';
+    statusText.textContent = `در حال دانلود مدل... ${data.progress}%`;
+    output.textContent = `دانلود مدل: ${data.progress}%`;
+    progressBar.style.width = `${data.progress}%`;
+    button.disabled = true;
+    return;
+  }
   if (data.status === 'loading') {
-    output.textContent = 'در حال آماده‌سازی مدل...';
+    modelStatus.className = 'model-status loading';
+    statusText.textContent = 'در حال آماده‌سازی مدل...';
+    output.textContent = 'مدل در حال بارگذاری است...';
     button.disabled = true;
     return;
   }
 
   if (data.status === 'ready') {
-    output.textContent = 'مدل آماده است.';
+    modelStatus.className = 'model-status ready';
+    statusText.textContent = 'مدل آماده است';
+    output.textContent = 'متن خود را وارد کنید و روی «خلاصه کن» بزنید.';
+    progressBar.style.width = '100%';
     button.disabled = false;
     return;
   }
 
   if (data.status === 'result') {
+    modelStatus.className = 'model-status ready';
+    statusText.textContent = 'خلاصه‌سازی انجام شد';
     output.textContent = data.summary;
     button.disabled = false;
     return;
   }
 
   if (data.status === 'error') {
+    modelStatus.className = 'model-status loading';
+    statusText.textContent = 'خطا';
     output.textContent = 'خطا: ' + data.error;
     button.disabled = false;
   }
@@ -59,7 +77,8 @@ button.addEventListener('click', () => {
     return;
   }
 
-  output.textContent = 'در حال خلاصه‌سازی...';
+  modelStatus.className = 'model-status processing';
+  statusText.textContent = 'در حال خلاصه‌سازی...';
   button.disabled = true;
 
   worker.postMessage({

@@ -7,9 +7,18 @@ async function loadModel() {
 
   summarizer = await pipeline(
     'summarization',
-    'Xenova/distilbart-cnn-6-6'
+    'Xenova/distilbart-cnn-6-6',
+    {
+      progress_callback: (progress) => {
+        if (progress.status === 'progress') {
+          self.postMessage({
+            status: 'progress',
+            progress: Math.round(progress.progress)
+          });
+        }
+      }
+    }
   );
-
   self.postMessage({ status: 'ready' });
 }
 
