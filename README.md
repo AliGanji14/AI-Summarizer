@@ -4,7 +4,7 @@ A browser-based AI text summarizer built with **JavaScript** and **Transformers.
 
 ## Demo
 
-[Live Demo](https://aliganji14.github.io/AI-Summarizer/?utm_source=chatgpt.com)
+[Live Demo](https://aliganji14.github.io/AI-Summarizer/)
 
 ## Features
 
