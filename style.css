@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: #f4f7fb;
+  color: #1f2937;
+}
+
+.container {
+  width: min(900px, 92%);
+  margin: 50px auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin-bottom: 12px;
+  font-size: 32px;
+}
+
+.header p {
+  color: #6b7280;
+  line-height: 1.8;
+}
+
+.privacy {
+  display: inline-block;
+  margin-top: 8px;
+  color: #059669;
+  font-size: 14px;
+}
+
+.card,
+.result-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 280px;
+  padding: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 2;
+  resize: vertical;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #6366f1;
+}
+
+#counter {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.summary-options {
+  margin-top: 18px;
+}
+
+.summary-options label {
+  margin-left: 8px;
+}
+
+.summary-options select {
+  padding: 8px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+button {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #4f46e5;
+  color: white;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4338ca;
+}
+
+button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+#clearBtn {
+  background: #6b7280;
+}
+
+#clearBtn:hover {
+  background: #4b5563;
+}
+
+.result-card h2 {
+  margin-top: 0;
+}
+
+#output {
+  min-height: 120px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  line-height: 2;
+  white-space: pre-wrap;
+}
+
+#copyBtn {
+  width: 100%;
+  margin-top: 12px;
+  background: #059669;
+}
+
+#copyBtn:hover {
+  background: #047857;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 94%;
+    margin: 25px auto;
+  }
+
+  .header h1 {
+    font-size: 25px;
+  }
+
+  .card,
+  .result-card {
+    padding: 18px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+}

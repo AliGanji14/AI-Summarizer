@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>خلاصه‌ساز هوشمند | AI Summarizer</title>
+
+  <meta
+    name="description"
+    content="خلاصه‌سازی متن با هوش مصنوعی، مستقیماً داخل مرورگر و بدون ارسال اطلاعات به سرور."
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <header class="header">
+      <h1>خلاصه‌ساز هوشمند</h1>
+
+      <p>
+        متن خود را وارد کنید تا هوش مصنوعی آن را مستقیماً داخل مرورگر شما خلاصه کند.
+      </p>
+
+      <span class="privacy">
+        🔒 اطلاعات شما از دستگاه خارج نمی‌شود
+      </span>
+    </header>
+
+    <section class="card">
+
+      <textarea
+        id="input"
+        placeholder="متن خود را اینجا وارد کنید..."
+      ></textarea>
+
+      <div id="counter">۰ کلمه | ۰ کاراکتر</div>
+
+      <div class="summary-options">
+        <label for="summaryLength">طول خلاصه:</label>
+
+        <select id="summaryLength">
+          <option value="40">کوتاه</option>
+          <option value="70" selected>متوسط</option>
+          <option value="120">بلند</option>
+        </select>
+      </div>
+
+      <div class="buttons">
+        <button id="summarizeBtn">خلاصه کن</button>
+        <button id="clearBtn">پاک کردن</button>
+      </div>
+
+    </section>
+
+    <section class="result-card">
+
+      <h2>خلاصه متن</h2>
+
+      <div id="output">
+        در حال آماده‌سازی مدل...
+      </div>
+
+      <button id="copyBtn">کپی خلاصه</button>
+
+    </section>
+
+  </main>
+
+  <script type="module" src="app.js"></script>
+
+</body>
+</html>
