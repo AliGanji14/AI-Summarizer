@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>خلاصه‌ساز هوشمند | AI Summarizer</title>
+  <title>AI Summarizer | Smart Text Summarizer</title>
 
-  <meta name="description" content="خلاصه‌سازی متن با هوش مصنوعی، مستقیماً داخل مرورگر و بدون ارسال اطلاعات به سرور.">
+  <meta name="description" content="Summarize text with AI, directly in your browser and without sending any data to a server.">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -17,48 +17,48 @@
   <main class="container">
 
     <header class="header">
-      <h1>خلاصه‌ساز هوشمند</h1>
+      <h1>Smart Summarizer</h1>
 
       <p>
-        متن خود را وارد کنید تا هوش مصنوعی آن را مستقیماً داخل مرورگر شما خلاصه کند.
+        Enter your text and let the AI summarize it for you, right inside your browser.
       </p>
 
       <span class="privacy">
-        🔒 اطلاعات شما از دستگاه خارج نمی‌شود
+        🔒 Your data never leaves your device
       </span>
-      <button id="themeToggle" class="theme-toggle">🌙 حالت تاریک</button>
+      <button id="themeToggle" class="theme-toggle">🌙 Dark mode</button>
     </header>
 
     <section class="card">
 
-      <textarea id="input" placeholder="متن خود را اینجا وارد کنید..."></textarea>
+      <textarea id="input" placeholder="Type or paste your text here..."></textarea>
 
-      <div id="counter">۰ کلمه | ۰ کاراکتر</div>
+      <div id="counter">0 words | 0 characters</div>
 
       <div class="summary-options">
-        <label for="summaryLength">طول خلاصه:</label>
+        <label for="summaryLength">Summary length:</label>
 
         <select id="summaryLength">
-          <option value="40">کوتاه</option>
-          <option value="70" selected>متوسط</option>
-          <option value="120">بلند</option>
+          <option value="40">Short</option>
+          <option value="70" selected>Medium</option>
+          <option value="120">Long</option>
         </select>
       </div>
 
       <div class="buttons">
-        <button id="summarizeBtn">خلاصه کن</button>
-        <button id="clearBtn">پاک کردن</button>
+        <button id="summarizeBtn">Summarize</button>
+        <button id="clearBtn">Clear</button>
       </div>
 
     </section>
 
     <section class="result-card">
 
-      <h2>خلاصه متن</h2>
+      <h2>Summary</h2>
 
       <div class="model-status loading" id="modelStatus">
         <span class="status-dot"></span>
-        <span id="statusText">در حال آماده‌سازی مدل...</span>
+        <span id="statusText">Preparing the model...</span>
       </div>
 
       <div class="progress-container" id="progressContainer">
@@ -66,10 +66,10 @@
       </div>
 
       <div id="output">
-        متن خلاصه‌شده اینجا نمایش داده می‌شود.
+        The summary will appear here.
       </div>
 
-      <button id="copyBtn">کپی خلاصه</button>
+      <button id="copyBtn">Copy summary</button>
 
     </section>
 

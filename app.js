@@ -14,11 +14,24 @@ const statusText = document.querySelector('#statusText');
 const progressBar = document.querySelector('#progressBar');
 const themeToggle = document.querySelector('#themeToggle');
 
+const EMPTY_COUNTER = '0 words | 0 characters';
+
+// Placeholder texts shown before a real summary exists, so the
+// copy button should ignore them.
+const PLACEHOLDER_TEXTS = new Set([
+  'The summary will appear here.',
+  'Downloading model:',
+  'Model is loading...',
+  'Model is ready.',
+  'Enter your text and click “Summarize”.',
+  'Text cleared.'
+]);
+
 const savedTheme = localStorage.getItem('theme');
 
 if (savedTheme === 'dark') {
   document.body.classList.add('dark');
-  themeToggle.textContent = '☀️ حالت روشن';
+  themeToggle.textContent = '☀️ Light mode';
 }
 
 themeToggle.addEventListener('click', () => {
@@ -29,8 +42,8 @@ themeToggle.addEventListener('click', () => {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
   themeToggle.textContent = isDark
-    ? '☀️ حالت روشن'
-    : '🌙 حالت تاریک';
+    ? '☀️ Light mode'
+    : '🌙 Dark mode';
 });
 input.addEventListener('input', () => {
   const text = input.value.trim();
@@ -38,31 +51,31 @@ input.addEventListener('input', () => {
   const characters = input.value.length;
   const words = text ? text.split(/\s+/).length : 0;
 
-  counter.textContent = `${words} کلمه | ${characters} کاراکتر`;
+  counter.textContent = `${words} words | ${characters} characters`;
 });
 
 worker.onmessage = (event) => {
   const data = event.data;
   if (data.status === 'progress') {
     modelStatus.className = 'model-status loading';
-    statusText.textContent = `در حال دانلود مدل... ${data.progress}%`;
-    output.textContent = `دانلود مدل: ${data.progress}%`;
+    statusText.textContent = `Downloading model... ${data.progress}%`;
+    output.textContent = `Downloading model: ${data.progress}%`;
     progressBar.style.width = `${data.progress}%`;
     button.disabled = true;
     return;
   }
   if (data.status === 'loading') {
     modelStatus.className = 'model-status loading';
-    statusText.textContent = 'در حال آماده‌سازی مدل...';
-    output.textContent = 'مدل در حال بارگذاری است...';
+    statusText.textContent = 'Preparing the model...';
+    output.textContent = 'The model is loading...';
     button.disabled = true;
     return;
   }
 
   if (data.status === 'ready') {
     modelStatus.className = 'model-status ready';
-    statusText.textContent = 'مدل آماده است';
-    output.textContent = 'متن خود را وارد کنید و روی «خلاصه کن» بزنید.';
+    statusText.textContent = 'Model is ready';
+    output.textContent = 'Enter your text and click “Summarize”.';
     progressBar.style.width = '100%';
     button.disabled = false;
     return;
@@ -70,7 +83,7 @@ worker.onmessage = (event) => {
 
   if (data.status === 'result') {
     modelStatus.className = 'model-status ready';
-    statusText.textContent = 'خلاصه‌سازی انجام شد';
+    statusText.textContent = 'Summary ready';
     output.textContent = data.summary;
     button.disabled = false;
     return;
@@ -78,8 +91,8 @@ worker.onmessage = (event) => {
 
   if (data.status === 'error') {
     modelStatus.className = 'model-status loading';
-    statusText.textContent = 'خطا';
-    output.textContent = 'خطا: ' + data.error;
+    statusText.textContent = 'Error';
+    output.textContent = 'Error: ' + data.error;
     button.disabled = false;
   }
 };
@@ -88,17 +101,17 @@ button.addEventListener('click', () => {
   const text = input.value.trim();
 
   if (!text) {
-    output.textContent = 'لطفاً ابتدا یک متن وارد کنید.';
+    output.textContent = 'Please enter some text first.';
     return;
   }
 
   if (text.length < 100) {
-    output.textContent = 'لطفاً متنی حداقل ۱۰۰ کاراکتری وارد کنید.';
+    output.textContent = 'Please enter at least 100 characters of text.';
     return;
   }
 
   modelStatus.className = 'model-status processing';
-  statusText.textContent = 'در حال خلاصه‌سازی...';
+  statusText.textContent = 'Summarizing...';
   button.disabled = true;
 
   worker.postMessage({
@@ -109,34 +122,26 @@ button.addEventListener('click', () => {
 
 clearBtn.addEventListener('click', () => {
   input.value = '';
-  output.textContent = 'متن پاک شد.';
-  counter.textContent = '۰ کلمه | ۰ کاراکتر';
+  output.textContent = 'Text cleared.';
+  counter.textContent = EMPTY_COUNTER;
 });
 
 copyBtn.addEventListener('click', async () => {
   const summary = output.textContent.trim();
 
-  if (
-    !summary ||
-    summary === 'مدل آماده است.' ||
-    summary === 'در حال آماده‌سازی مدل...' ||
-    summary === 'در حال خلاصه‌سازی...'
-  ) {
+  if (!summary || PLACEHOLDER_TEXTS.has(summary)) {
     return;
   }
 
   try {
     await navigator.clipboard.writeText(summary);
 
-    ```
-copyBtn.textContent = 'کپی شد ✓';
+    copyBtn.textContent = 'Copied ✓';
 
-setTimeout(() => {
-  copyBtn.textContent = 'کپی خلاصه';
-}, 1500);
-```
-
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy summary';
+    }, 1500);
   } catch (error) {
-    output.textContent = 'کپی کردن خلاصه انجام نشد.';
+    output.textContent = 'Could not copy the summary.';
   }
 });

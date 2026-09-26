@@ -16,7 +16,8 @@ A browser-based AI text summarizer built with **JavaScript** and **Transformers.
 * Word and character counter
 * Copy summary to clipboard
 * Clear input
-* Responsive Persian UI
+* Responsive English UI
+* Dark mode
 * Minimum text validation
 
 ## Tech Stack
@@ -67,13 +68,12 @@ AI inference happens directly in the browser.
 
 ## Limitations
 
-The current summarization model is primarily designed for English text, so summarization quality for Persian text may be limited.
+The current summarization model is primarily designed for English text, so summary quality for other languages may be limited.
 
 ## Future Improvements
 
 * Support for multilingual summarization
 * Better loading progress indicator
-* Dark mode
 * Download summary as TXT/PDF
 * Improved error handling
 * Additional summarization models
